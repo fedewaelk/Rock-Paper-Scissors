@@ -17,7 +17,7 @@ function getHumanChoice() {
     let humanChoice;
 
     do {
-        humanChoice = prompt(`Your score: ${humanScore}  Computer score: ${computerScore}   \nChoose an option: Rock (1), Paper (2), or Scissors (3)`);
+        humanChoice = prompt(`Your score: ${humanScore}     Computer score: ${computerScore}   \nChoose an option: Rock (1), Paper (2), or Scissors (3)`);
     } while (humanChoice !== "1" && humanChoice !== "2" && humanChoice !== "3");
 
     return choice[parseInt(humanChoice) - 1];
@@ -30,18 +30,34 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice === "scissors" && computerChoice === "paper") ||
         (humanChoice === "paper" && computerChoice === "rock")
     ) {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-        humanScore ++
+        alert(`You win! ${humanChoice} beats ${computerChoice}`);
+        humanScore ++;
         console.log(humanScore)
     } else if (humanChoice === computerChoice) {
-        console.log(`It's a tie! Both chose ${humanChoice}`);
+        alert(`It's a tie! Both chose ${humanChoice}`);
     } else {
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+        alert(`You lose! ${computerChoice} beats ${humanChoice}`);
+        computerScore ++;
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+//Loop to keep playing
 
-playRound(humanSelection, computerSelection);
+while (true) {
+
+    if (humanScore === 3 || computerScore === 3) {
+        if (humanScore > computerScore) {
+            alert(`You win the game! \nFinal score: Human ${humanScore} - Computer ${computerScore}`);
+        } else {
+            alert(`You loose the game! \nFinal score: Human ${humanScore} - Computer ${computerScore}`);
+        }
+        break;
+    }
+
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+
+    console.log(`Current score: Human ${humanScore} - Computer ${computerScore}`);
+}
 
